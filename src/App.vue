@@ -1,9 +1,6 @@
 <template>
   <div id="app">
     <login/>
-    <login/>
-    <login/>
-
   </div>
 </template>
 
