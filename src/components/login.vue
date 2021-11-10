@@ -1,11 +1,14 @@
 <template>
   <div class="main">
+    <VueSparkles>
     <img src="../assets/trainin.jpeg" alt="">
+    </VueSparkles>
+
     <h1>Login</h1>
     <div>
         <input type="text" v-model="name" placeholder="User_Name"><br><br>
         <input type="text" v-model="password" placeholder="Password"><br><br>
-        <button type="button" @click="signin()">signin</button>
+        <button type="button" @click="login()">Login</button>
     </div>
   </div>
 </template>
@@ -20,7 +23,7 @@ export default {
       }
     },
     methods: {
-     signin: async function() {
+     login: async function() {
         var results = await axios.post("http://localhost:3000/user",{
           name: this.name,
           password: this.password,
@@ -28,8 +31,17 @@ export default {
         console.log("WARNING: ",results);
         if (results.status==201) {
           window.alert('signin Done')
+          // kuladeep
+          localStorage.setItem('user-info',JSON.stringify(results.data));
+          this.$router.push({name:'home'})
 
         }
+      }
+    },
+    mounted(){
+      let user = localStorage.getItem('user-info');
+      if (user) {
+        this.$router.push({name:'home'})
       }
     }
 }
