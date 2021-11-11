@@ -24,7 +24,7 @@ export default {
   methods: {
     login: async function(){
       let result = await axios.get('http://localhost:3000/user?name=Kuladeep&password=password')
-      console.warn('warning---',result);
+      console.warn('warning',result);
     }
   }
 }

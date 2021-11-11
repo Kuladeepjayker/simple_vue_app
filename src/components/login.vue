@@ -1,13 +1,11 @@
 <template>
   <div class="main">
-    <VueSparkles>
     <img src="../assets/trainin.jpeg" alt="">
-    </VueSparkles>
 
     <h1>Login</h1>
     <div>
-        <input type="text" v-model="name" placeholder="User_Name"><br><br>
-        <input type="text" v-model="password" placeholder="Password"><br><br>
+        <input type="text" v-model="name" placeholder="User_Name" required><br><br>
+        <input type="text" v-model="password" placeholder="Password" required><br><br>
         <button type="button" @click="login()">Login</button>
     </div>
   </div>

@@ -1,38 +1,59 @@
 <template>
     <div id='app'>
-      <VueSparkles>
-      <h1 style="text-align:center">Web App</h1>
-      </VueSparkles>
+      <h1 style="text-align:center">CIE Web App</h1>
         <div class="dataDisplay">
                 <div class="card">
                   <table>
                     <tr>
-                      <th>Title</th>
-                      <th>Author</th>
-                      <th>Journal</th>
-                      <th>Year</th>
+                      <th>ID</th>
+                      <th>Full Name</th>
+                      <th>Email</th>
+                      <th>City</th>
+
+                    </tr>
+                    <tr v-for='user in this.datapacket' :key='user.id'>
+                      <td>{{user.id}}</td>
+                      <td>{{user.name}}</td>
+                      <td>{{user.email}}</td>
+                      <td>{{user.address.street}}</td>
                     </tr>
                   </table>
                 </div>
-                <button>Next</button>
+                <button id="btn" @click='logout()'>Logout</button>
             </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'home',
+  data() {
+    return {
+      datapacket : [],
+    }
+  },
 
-  mounted() {
-    let user = localStorage.getItem('user-info');
-    if (!user) {
+  methods: {
+    logout: function(){
+      localStorage.clear();
       this.$router.push({name:'login'})
     }
   },
+
+
+  mounted() {
+    axios.get('https://jsonplaceholder.typicode.com/users')
+    .then((Res)=>{
+      this.datapacket = Res.data;
+      console.log("kuladeep",Res);
+    })
+  },
+
 }
 </script>
+<style media="screen">
 
-<style lang="css" scoped>
 table {
   font-family: monospace;
   font-size: 18px;
@@ -54,7 +75,7 @@ table {
   padding: 10px;
 }
 
-button {
+#btn {
   text-decoration: none;
   border: none;
   outline-style: none;
